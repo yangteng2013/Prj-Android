@@ -5,7 +5,8 @@
 
 cmake_minimum_required(VERSION 3.4.1)
 #set(OpenCV_DIR /Users/mac02/Downloads/OpenCV-android/sdk/native/jni)
-set(OpenCV_DIR ${CMAKE_CURRENT_SOURCE_DIR}/opencv342/sdk/native/jni)
+#set(OpenCV_DIR ${CMAKE_CURRENT_SOURCE_DIR}/opencv342/sdk/native/jni)
+set(OpenCV_DIR E:/opencv-3.4.2-android-sdk/OpenCV-android-sdk/sdk/native/jni)
 #message(STATUS "路径:${CMAKE_CURRENT_SOURCE_DIR}/opencvnative3_4_2/jni}")
 find_package(OpenCV REQUIRED)
 message(STATUS "OpenCV libraries: ${OpenCV_LIBS}")

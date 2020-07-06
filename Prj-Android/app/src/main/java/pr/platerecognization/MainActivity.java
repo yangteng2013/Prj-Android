@@ -20,6 +20,7 @@ import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -62,7 +63,7 @@ public class MainActivity extends Activity implements AlertDialog.OnClickListene
 
     public ImageView imgv;
     public SeekBar sb;
-
+    private static final int PERMISSION_REQUESTCODE = 123;
     private static final int REQUEST_CODE_IMAGE_CAMERA = 1;
     private static final int REQUEST_CODE_IMAGE_OP = 2;
     private static final int REQUEST_CODE_OP = 3;
@@ -351,14 +352,31 @@ public class MainActivity extends Activity implements AlertDialog.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        String permission = Manifest.permission.WRITE_EXTERNAL_STORAGE;
-        if (ActivityCompat.checkSelfPermission(MainActivity.this, permission)
-                != PackageManager.PERMISSION_GRANTED
-                ) {
-            ActivityCompat.requestPermissions(MainActivity.this, new String[]
-                    {permission},123);
+//        String permission = Manifest.permission.WRITE_EXTERNAL_STORAGE;
+        String[] PERMISSION = new String[]{
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.READ_PHONE_STATE,
+                Manifest.permission.CAMERA};
+//        if (ActivityCompat.checkSelfPermission(MainActivity.this, permission)
+//                != PackageManager.PERMISSION_GRANTED
+//                ) {
+//            ActivityCompat.requestPermissions(MainActivity.this, new String[]
+//                    {permission},123);
+//
+//        }
 
+        //动态授权申请
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            //没有授权
+            ActivityCompat.requestPermissions(this, PERMISSION, PERMISSION_REQUESTCODE);
+        } else {
+//            //已经授权
+//            cameraManager = new CameraManager(this);
+//            initView();
+//            screenRotation = new ScreenRotation(this, mHandler);
         }
+
         btn = (Button)findViewById(R.id.button);
         recogBtn = (Button)findViewById(R.id.button_recog);
         findViewById(R.id.button_recog_now).setOnClickListener(this);
